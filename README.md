@@ -15,6 +15,16 @@
   <li>メインプロセス
     <code>main.js</code>
     は普通のNodeなのでbrowserifyとかは不要</li>
+  <li><code>package.json</code>
+    に記述されたメインプロセス
+    <code>main.js</code>
+    が最初に起動し、そこからブラウザウィンドウ
+    <code>index.html</code>
+    を開き、その中の
+    <code>&lt;script&gt;</code>
+    で
+    <code>update.js</code>
+    を呼び出している
   <li><a href="http://masui.org.s3.amazonaws.com/7/d/7d539286843ccd5b3ea22909423c0078.dmg">Mac版dmgダウンロード</a></li>
 </ul>
 
