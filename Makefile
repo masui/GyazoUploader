@@ -1,5 +1,9 @@
-cleanbuild: clean install
+.PHONY: build
+
+build:
 	npm run build
+
+cleanbuild: clean install build
 
 clean:
 	-/bin/rm -r -f build
