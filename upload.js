@@ -1,12 +1,10 @@
 //
-// Drag&Dropしたとき呼ばれる
+// Electronのレンダラプロセス
 //
 // 取得したファイル情報をメインプロセスに渡し、そちらでGyazoにアップロードしてもらう
 //
 
-const { ipcRenderer } = window.native;
-
-console.log(ipcRenderer)
+const { ipcRenderer } = window.native; // preload.js 経由で渡されるデータ
 
 let token = ''
 a = location.href.match(/token=(.*)$/)
@@ -14,7 +12,6 @@ if(a){
     token = a[1]
     document.getElementById('token').value = token
 }
-console.log(`token = ${token}`)
 
 document.body.addEventListener('dragover', function(e){ // 何故かこれが必要
     e.stopPropagation();
@@ -22,6 +19,9 @@ document.body.addEventListener('dragover', function(e){ // 何故かこれが必
     return false
 })
 
+//
+// Drag & Dropしたとき呼ばれる
+//
 document.body.addEventListener('drop', function(e){
     e.stopPropagation();
     e.preventDefault(); // デフォルトは「ファイルを開く」
