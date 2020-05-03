@@ -5,17 +5,13 @@
 'use strict';
 
 const path = require('path')
+const fs = require('fs');
+const Gyazo  = require('gyazo-api');
+const { app, ipcMain, BrowserWindow } = require('electron')
 
-let token = ''
-
-var { app, ipcMain, BrowserWindow } = require('electron')
 
 // 起動 URL
 var currentURL = 'file://' + __dirname + '/index.html';
-
-// クラッシュレポート
-// require('crash-reporter').start();
-// 何故か動かない
 
 // メインウィンドウ
 var mainWindow = null;
@@ -28,11 +24,7 @@ app.on('window-all-closed', function() {
 });
 
 
-var Gyazo  = require('gyazo-api');
-//var gyazo = new Gyazo(token);
-
-const fs = require('fs');
-
+let token = ''
 let tokenpath = `${app.getPath('userData')}/gyazotoken`
 console.log(`tokenpath = ${tokenpath}`)
 try {
@@ -41,7 +33,6 @@ try {
 }
 catch (err){
 }
-
 console.log(`token = ${token}`)
 
 // 非同期メッセージの受信と返信
@@ -67,10 +58,7 @@ ipcMain.on('asynchronous-message', (event, path, token) => {
 	    console.log("ERROR")
 	    console.error(err);
 	});
-  // 送信元のチャンネル('asynchronous-reply')に返信する
-  // event.reply('asynchronous-reply', 'pong')
 })
-
 
 
 // Electronの初期化完了後に実行

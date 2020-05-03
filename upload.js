@@ -1,12 +1,15 @@
+//
+//
+//
 
 const { ipcRenderer } = window.native;
 
 console.log(ipcRenderer)
 
-ipcRenderer.on('asynchronous-reply', (event, arg) => {
-    // 受信時のコールバック関数
-    console.log(arg) // pong
-});
+//ipcRenderer.on('asynchronous-reply', (event, arg) => {
+//    // 受信時のコールバック関数
+//    console.log(arg) // pong
+//});
 
 console.log(location.href)
 
@@ -29,7 +32,7 @@ document.body.addEventListener('drop', function(e){
     e.preventDefault(); // デフォルトは「ファイルを開く」
     files = e.dataTransfer.files;
     token = document.getElementById('token').value
-    alert(`drop ... token=${token}`)
+    // alert(`drop ... token=${token}`)
     for (let i=0;i<files.length;i++){
         file = files[i];
 	ipcRenderer.send('asynchronous-message', file.path, token)
