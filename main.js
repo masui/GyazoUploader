@@ -12,10 +12,7 @@ const ExifImage = require('exif').ExifImage;
 
 
 // 起動 URL
-var currentURL = 'file://' + __dirname + '/index.html';
-
-// メインウィンドウ
-var mainWindow = null;
+var currentURL = `file://${__dirname}/index.html`
 
 // 全てのウィンドウが閉じたら終了
 app.on('window-all-closed', function() {  
@@ -29,7 +26,7 @@ let token = ''
 let tokenpath = `${app.getPath('userData')}/gyazotoken`
 try {
     fs.statSync(tokenpath)
-    token = fs.readFileSync(app.getPath('userData')+"/gyazotoken",token)
+    token = fs.readFileSync(tokenpath)
 }
 catch (err){
     // トークンがセーブされていない
@@ -43,7 +40,7 @@ let gyazo = new Gyazo(token);
 ipcMain.on('asynchronous-message', (event, path, token) => {
 
     // 指定されたトークンをセーブしておく
-    fs.writeFileSync(app.getPath('userData')+"/gyazotoken",token)
+    fs.writeFileSync(`${app.getPath('userData')}/gyazotoken`,token)
     
     let data = fs.readFileSync(path)
     
@@ -51,7 +48,7 @@ ipcMain.on('asynchronous-message', (event, path, token) => {
 	let t = null
     	new ExifImage({ image : path }, function (error, exifData) {
             if (error)
-		console.log('Error: '+error.message);
+		console.log(`Error: ${error.message}`);
             else {
 		//console.log(exifData); // Do something with your data!
 		//console.log(exifData.image.ModifyDate)
@@ -83,7 +80,7 @@ ipcMain.on('asynchronous-message', (event, path, token) => {
 
 // Electronの初期化完了後に実行
 app.on('ready', function() {  
-    mainWindow = new BrowserWindow({
+    let mainWindow = new BrowserWindow({
 	width: 800,
 	height: 600,
 	webPreferences: {
@@ -91,7 +88,7 @@ app.on('ready', function() {
 	}
     });
 
-    mainWindow.loadURL(currentURL + "?token=" + token);
+    mainWindow.loadURL(`${currentURL}?token=${token}`);
     
     // デベロッパーツールを表示
     // mainWindow.toggleDevTools();
