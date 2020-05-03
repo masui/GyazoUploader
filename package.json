@@ -4,6 +4,7 @@
    "description": "Upload JPEG photos to Gyazo",
    "main": "main.js",
    "dependencies": {
+      "exif": "^0.6.0",
       "gyazo-api": "^0.3.1"
    },
    "devDependencies": {
@@ -23,7 +24,7 @@
    "build": {
       "appId": "com.pitecan.gyazouploader",
       "mac": {
-         "target": "pkg"
+         "target": "dmg"
       },
       "directories": {
          "output": "build"
