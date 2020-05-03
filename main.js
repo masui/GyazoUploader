@@ -27,14 +27,13 @@ app.on('window-all-closed', function() {
 
 let token = ''
 let tokenpath = `${app.getPath('userData')}/gyazotoken`
-//console.log(`tokenpath = ${tokenpath}`)
 try {
     fs.statSync(tokenpath)
     token = fs.readFileSync(app.getPath('userData')+"/gyazotoken",token)
 }
 catch (err){
+    // トークンがセーブされていない
 }
-//console.log(`token = ${token}`)
 
 let gyazo = new Gyazo(token);
 
@@ -42,15 +41,11 @@ let gyazo = new Gyazo(token);
 // ブラウザプロセスから伝えられたアップロードファイルをGyazo.comに登録
 //
 ipcMain.on('asynchronous-message', (event, path, token) => {
-    // 受信したコマンドの引数を表示する
-    //console.log(`async-message: path=${path}`)
-    //console.log(`token = ${token}`)
-	   
+
+    // 指定されたトークンをセーブしておく
     fs.writeFileSync(app.getPath('userData')+"/gyazotoken",token)
     
     let data = fs.readFileSync(path)
-    
-    
     
     try {
 	let t = null
@@ -63,12 +58,9 @@ ipcMain.on('asynchronous-message', (event, path, token) => {
 		//console.log("----------")
 		//let datedesc = new Date(Date.parse(exifData.image.ModifyDate.replace(/:/,'/').replace(/:/,'/')))
 		let t = Date.parse(exifData.image.ModifyDate.replace(/:/,'/').replace(/:/,'/')) / 1000.0
-		//console.log(t)
-
 		let stream = fs.createReadStream(path)
-		//console.log(stream)
 		gyazo.upload(stream, {
-		    title: "localhost",
+		    title: "localhost", // もっとちゃんとしたものを指定したい
 		    desc: exifData.image.ModifyDate,
 		    created_at: t
 		})
@@ -91,7 +83,6 @@ ipcMain.on('asynchronous-message', (event, path, token) => {
 
 // Electronの初期化完了後に実行
 app.on('ready', function() {  
-    // メイン画面のサイズ
     mainWindow = new BrowserWindow({
 	width: 800,
 	height: 600,
@@ -99,11 +90,10 @@ app.on('ready', function() {
 	    preload: path.join(__dirname, 'preload.js')
 	}
     });
-    // 起動 url を指定
+
     mainWindow.loadURL(currentURL + "?token=" + token);
     
     // デベロッパーツールを表示
-    // 不要であればコメントアウト
     // mainWindow.toggleDevTools();
     
     // ウィンドウが閉じられたらアプリも終了

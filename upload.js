@@ -1,17 +1,12 @@
 //
+// Drag&Dropしたとき呼ばれる
 //
+// 取得したファイル情報をメインプロセスに渡し、そちらでGyazoにアップロードしてもらう
 //
 
 const { ipcRenderer } = window.native;
 
 console.log(ipcRenderer)
-
-//ipcRenderer.on('asynchronous-reply', (event, arg) => {
-//    // 受信時のコールバック関数
-//    console.log(arg) // pong
-//});
-
-console.log(location.href)
 
 let token = ''
 a = location.href.match(/token=(.*)$/)
@@ -32,13 +27,9 @@ document.body.addEventListener('drop', function(e){
     e.preventDefault(); // デフォルトは「ファイルを開く」
     files = e.dataTransfer.files;
     token = document.getElementById('token').value
-    // alert(`drop ... token=${token}`)
-    for (let i=0;i<files.length;i++){
+    for(let i=0;i<files.length;i++){
         file = files[i];
 	ipcRenderer.send('asynchronous-message', file.path, token)
-    }
-    if(e.dataTransfer){
-	console.log("e is DragEvent");
     }
 });
 
