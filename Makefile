@@ -1,4 +1,4 @@
-build_all:
+cleanbuild: clean install
 	npm run build
 
 clean:
