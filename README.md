@@ -14,7 +14,7 @@
     を開き、その中の
     <code>&lt;script&gt;</code>
     で
-    <code>update.js</code>
+    <code>upload.js</code>
     を呼び出している
   <li>Drag&amp;Dropデータはレンダラプロセス
     <code>upload.js</code>
@@ -24,7 +24,9 @@
     を使って共有データを使うらしい...</li>
   <li>メインプロセス
     <code>main.js</code>
-    は普通のNodeなのでbrowserifyとかは不要</li>
+    Nodeだが
+    <code>upload.js</code>
+    はブラウザJSである
   <li><a href="http://masui.org.s3.amazonaws.com/7/d/7d539286843ccd5b3ea22909423c0078.dmg">Mac版dmgダウンロード</a></li>
 </ul>
 
