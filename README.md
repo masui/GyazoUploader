@@ -1,4 +1,4 @@
-<h1>写真をGyazoにアップロード</h1>
+<h1>写真をGyazoにアップロードするElectronアプリ</h1>
 
 <ul>
   <li>Electronのメインプロセスで<a href="http://shokai.org/blog/archives/9465">Gyazo npm</a>を使ってアップロードする</li>
