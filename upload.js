@@ -24,7 +24,7 @@ document.body.addEventListener('dragover', function(e){ // 何故かこれが必
 //
 document.body.addEventListener('drop', function(e){
     e.stopPropagation();
-    e.preventDefault(); // デフォルトは「ファイルを開く」
+    e.preventDefault(); // デフォルトは「ファイルを開く」なのでそれを無効にする
     files = e.dataTransfer.files;
     token = document.getElementById('token').value
     for(let i=0;i<files.length;i++){

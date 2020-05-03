@@ -5,7 +5,7 @@
   <li>Drag&amp;Dropデータはレンダラプロセスで取得し、ファイル名をメインプロセスに通知する</li>
   <li>通知のためのIPC手順がイマイチ不明。<code>preload.js</code>を使って共有データを使うらしい...</li>
   <li>メインプロセス<code>main.js</code>は普通のNodeなのでbrowserifyとかは不要</li>
-  <li><a href="http://masui.org.s3.amazonaws.com/7/d/7d539286843ccd5b3ea22909423c0078.dmg">Mac版ダウンロード</a></li>
+  <li><a href="http://masui.org.s3.amazonaws.com/7/d/7d539286843ccd5b3ea22909423c0078.dmg">Mac版dmgダウンロード</a></li>
 </ul>
 
 <h2>Issues</h2>
