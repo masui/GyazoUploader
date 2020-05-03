@@ -20,15 +20,15 @@
       "start": "node_modules/.bin/electron .",
       "build": "electron-builder"
    },
-    "build": {
-	"appId": "com.pitecan.gyazouploader",
-	"mac": {
-	    "target": "pkg"
-	},
-	"directories": {
-	    "output": "build"
-	}
-    },
-    "author": "Toshiyuki Masui",
-    "license": "ISC"
+   "build": {
+      "appId": "com.pitecan.gyazouploader",
+      "mac": {
+         "target": "pkg"
+      },
+      "directories": {
+         "output": "build"
+      }
+   },
+   "author": "Toshiyuki Masui",
+   "license": "ISC"
 }

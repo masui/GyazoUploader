@@ -29,20 +29,31 @@ app.on('window-all-closed', function() {
 
 
 var Gyazo  = require('gyazo-api');
-var gyazo = new Gyazo(token);
+//var gyazo = new Gyazo(token);
 
 const fs = require('fs');
 
+let tokenpath = `${app.getPath('userData')}/gyazotoken`
+console.log(`tokenpath = ${tokenpath}`)
+try {
+    fs.statSync(tokenpath)
+    token = fs.readFileSync(app.getPath('userData')+"/gyazotoken",token)
+}
+catch (err){
+}
+
+console.log(`token = ${token}`)
 
 // 非同期メッセージの受信と返信
 ipcMain.on('asynchronous-message', (event, path, token) => {
     // 受信したコマンドの引数を表示する
-    console.log(path)
+    console.log(`async-message: path=${path}`)
     console.log(token)
 
     fs.writeFileSync(app.getPath('userData')+"/gyazotoken",token)
 
     let data = fs.createReadStream(path)
+    let gyazo = new Gyazo(token);
     gyazo.upload(data, {
 	title: "my picture",
 	desc: "upload from nodejs"
@@ -77,7 +88,7 @@ app.on('ready', function() {
     
     // デベロッパーツールを表示
     // 不要であればコメントアウト
-    mainWindow.toggleDevTools();
+    //mainWindow.toggleDevTools();
     
     // ウィンドウが閉じられたらアプリも終了
     mainWindow.on('closed', function() {
