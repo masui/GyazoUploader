@@ -1,6 +1,7 @@
 <h1>写真をGyazoにアップロードするElectronアプリ</h1>
 
 <ul>
+  <li>アプリに写真をDrag&amp;DropするとExifの日付でGyazoにアップロードされる</li>
   <li>Electronのメインプロセス
     <code>main.js</code>で
     <a href="http://shokai.org/blog/archives/9465">Gyazo npm</a>
