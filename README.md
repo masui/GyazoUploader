@@ -2,6 +2,7 @@
 
 <ul>
   <li>アプリに写真をDrag&amp;DropするとExifの日付でGyazoにアップロードされる</li>
+  <li>Gyazoトークンの取得が必要</li>
   <li>Electronのメインプロセス
     <code>main.js</code>で
     <a href="http://shokai.org/blog/archives/9465">Gyazo npm</a>
@@ -24,9 +25,10 @@
     を使って共有データを使うらしい...</li>
   <li>メインプロセス
     <code>main.js</code>
-    Nodeだが
+    はNodeだが、
+    レンダラプロセスで動く
     <code>upload.js</code>
-    はブラウザJSである
+    はブラウザJSであり、プロセス間通信が必要
   <li><a href="http://masui.org.s3.amazonaws.com/7/d/7d539286843ccd5b3ea22909423c0078.dmg">Mac版dmgダウンロード</a></li>
 </ul>
 
