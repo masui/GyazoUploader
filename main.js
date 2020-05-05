@@ -43,31 +43,35 @@ ipcMain.on('file', (event, path, token) => {
     fs.writeFileSync(`${app.getPath('userData')}/gyazotoken`,token)
     
     let data = fs.readFileSync(path)
-    
+    let stat = fs.statSync(path)
+    let t = Date.parse(stat.mtime)
+    let desc =''
     try {
-	let t = null
     	new ExifImage({ image : path }, function (error, exifData) {
             if(error){
-		event.sender.send('error', error.message);
+		event.sender.send('gyazo', `Exif error: ${error.message}`);
 	    }
             else {
 		// ちょっと苦しいが2020:05:05みたいなのを2020/05/05に変換する
-		let t = Date.parse(exifData.image.ModifyDate.replace(/:/,'/').replace(/:/,'/')) / 1000.0
-		let stream = fs.createReadStream(path)
-		gyazo.upload(stream, {
-		    title: "localhost", // もっとちゃんとしたものを指定したい
-		    desc: exifData.image.ModifyDate,
-		    created_at: t
-		})
-		    .then(function(res){
-			//console.log(res.data.image_id);
-			//console.log(res.data.permalink_url);
-			event.sender.send('gyazo', res.data.permalink_url);
-		    })
-		    .catch(function(err){
-			event.sender.send('error', `Upload error: ${error.message}`)
-		    });
+		t = Date.parse(exifData.image.ModifyDate.replace(/:/,'/').replace(/:/,'/'))
+		desc = exifData.image.ModifyDate
+		event.sender.send('gyazo', "Exif found");
 	    }
+	    let stream = fs.createReadStream(path)
+	    gyazo.upload(stream, {
+		title: "localhost", // もっとちゃんとしたものを指定したい
+		desc: desc,
+		created_at: t / 1000.0
+	    })
+		.then(function(res){
+		    //console.log(res.data.image_id);
+		    //console.log(res.data.permalink_url);
+		    event.sender.send('gyazo', `Upload success: ${res.data.permalink_url}`);
+		    event.sender.send('gyazo', `Date: ${new Date(t)}`)
+		})
+		.catch(function(err){
+		    event.sender.send('gyazo', `Upload error: ${error.message}`)
+		});
 	})
     }
     catch (err){
@@ -88,7 +92,7 @@ app.on('ready', function() {
     mainWindow.loadURL(`${currentURL}?token=${token}`);
     
     // デベロッパーツールを表示
-    // mainWindow.toggleDevTools();
+    //mainWindow.toggleDevTools();
     
     // ウィンドウが閉じられたらアプリも終了
     mainWindow.on('closed', function() {

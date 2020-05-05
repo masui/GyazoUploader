@@ -29,16 +29,17 @@ document.body.addEventListener('drop', function(e){
     token = document.getElementById('token').value
     for(let i=0;i<files.length;i++){
         file = files[i];
-	document.getElementById('info').value += `sending ${file.path}...\n`
+	console.log(file.lastModified)
+	document.getElementById('info').value += `Trying to send ${file.path}...\n`
 	ipcRenderer.send('file', file.path, token)
     }
 });
 
-ipcRenderer.on('gyazo', (event, url) => { // メインプロセスから情報取得
-    document.getElementById('info').value += `${url}\n`
-})
-
-ipcRenderer.on('error', (event, msg) => {
+ipcRenderer.on('gyazo', (event, msg) => { // メインプロセスから情報取得
     document.getElementById('info').value += `${msg}\n`
 })
+
+//ipcRenderer.on('error', (event, msg) => {
+//    document.getElementById('info').value += `${msg}\n`
+//})
 
