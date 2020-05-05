@@ -29,7 +29,7 @@
     レンダラプロセスで動く
     <code>upload.js</code>
     はブラウザJSであり、プロセス間通信が必要
-  <li><a href="http://masui.org.s3.amazonaws.com/0/3/03ec05b30d542584bf994d4559e426f9.dmg">Mac版dmgダウンロード</a></li>
+  <li><a href="http://pitecan.com/GyazoUploader-1.0.0.dmg">Mac版dmgダウンロード</a></li>
 </ul>
 
 <h2>Issues</h2>

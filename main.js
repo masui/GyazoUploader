@@ -67,7 +67,7 @@ ipcMain.on('file', (event, path, token) => {
 		    //console.log(res.data.image_id);
 		    //console.log(res.data.permalink_url);
 		    event.sender.send('gyazo', `Upload success: ${res.data.permalink_url}`);
-		    event.sender.send('gyazo', `Date: ${new Date(t)}`)
+		    event.sender.send('gyazo', `Timestamp: ${new Date(t)}`)
 		})
 		.catch(function(err){
 		    event.sender.send('gyazo', `Upload error: ${error.message}`)
