@@ -29,8 +29,16 @@ document.body.addEventListener('drop', function(e){
     token = document.getElementById('token').value
     for(let i=0;i<files.length;i++){
         file = files[i];
-	ipcRenderer.send('asynchronous-message', file.path, token)
+	document.getElementById('info').value += `sending ${file.path}...\n`
+	ipcRenderer.send('file', file.path, token)
     }
 });
 
+ipcRenderer.on('gyazo', (event, url) => { // メインプロセスから情報取得
+    document.getElementById('info').value += `${url}\n`
+})
+
+ipcRenderer.on('error', (event, msg) => {
+    document.getElementById('info').value += `${msg}\n`
+})
 

@@ -37,7 +37,7 @@ let gyazo = new Gyazo(token);
 //
 // ブラウザプロセスから伝えられたアップロードファイルをGyazo.comに登録
 //
-ipcMain.on('asynchronous-message', (event, path, token) => {
+ipcMain.on('file', (event, path, token) => {
 
     // 指定されたトークンをセーブしておく
     fs.writeFileSync(`${app.getPath('userData')}/gyazotoken`,token)
@@ -47,13 +47,11 @@ ipcMain.on('asynchronous-message', (event, path, token) => {
     try {
 	let t = null
     	new ExifImage({ image : path }, function (error, exifData) {
-            if (error)
-		console.log(`Error: ${error.message}`);
+            if(error){
+		event.sender.send('error', error.message);
+	    }
             else {
-		//console.log(exifData); // Do something with your data!
-		//console.log(exifData.image.ModifyDate)
-		//console.log("----------")
-		//let datedesc = new Date(Date.parse(exifData.image.ModifyDate.replace(/:/,'/').replace(/:/,'/')))
+		// ちょっと苦しいが2020:05:05みたいなのを2020/05/05に変換する
 		let t = Date.parse(exifData.image.ModifyDate.replace(/:/,'/').replace(/:/,'/')) / 1000.0
 		let stream = fs.createReadStream(path)
 		gyazo.upload(stream, {
@@ -62,13 +60,12 @@ ipcMain.on('asynchronous-message', (event, path, token) => {
 		    created_at: t
 		})
 		    .then(function(res){
-			console.log("Success")
-			console.log(res.data.image_id);
-			console.log(res.data.permalink_url);
+			//console.log(res.data.image_id);
+			//console.log(res.data.permalink_url);
+			event.sender.send('gyazo', res.data.permalink_url);
 		    })
 		    .catch(function(err){
-			console.log("ERROR")
-			console.error(err);
+			event.sender.send('error', `Upload error: ${error.message}`)
 		    });
 	    }
 	})
@@ -81,7 +78,7 @@ ipcMain.on('asynchronous-message', (event, path, token) => {
 // Electronの初期化完了後に実行
 app.on('ready', function() {  
     let mainWindow = new BrowserWindow({
-	width: 800,
+	width: 700,
 	height: 600,
 	webPreferences: {
 	    preload: path.join(__dirname, 'preload.js')
