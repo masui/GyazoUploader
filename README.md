@@ -33,9 +33,12 @@
   <li><a href="http://pitecan.com/GyazoUploader-1.0.0.dmg">Mac版dmgダウンロード</a></li>
 </ul>
 
+<!--
+
 <h2>Issues</h2>
 
 <ul>
   <li>Exifが存在しないときのエラー処理</li>
   <li>いろいろメッセージを表示する</li>
 </ul>
+-->
