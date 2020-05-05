@@ -1,3 +1,6 @@
+# Linuxでlibgconfが無いと言われた場合
+# sudo apt-get install libgconf-2-4
+
 .PHONY: build
 
 build:
@@ -16,6 +19,7 @@ install:
 run:
 	npm run start
 
-upload:
+upload-mac:
 	scp build/GyazoUploader-1.0.0.dmg pitecan.com:/www/www.pitecan.com/
-
+upload-chromeOS:
+	scp build/GyazoUploader-1.0.0.AppImage  pitecan.com:/www/www.pitecan.com/GyazoUploader
