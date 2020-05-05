@@ -2,6 +2,7 @@
 
 <ul>
   <li>アプリに写真をDrag&amp;DropするとExifの日付でGyazoにアップロードされる</li>
+  <li>Exif情報が無いときは写真ファイルの作成日でアップロード</li>
   <li>Gyazoトークンの取得が必要</li>
   <li>Electronのメインプロセス
     <code>main.js</code>で
